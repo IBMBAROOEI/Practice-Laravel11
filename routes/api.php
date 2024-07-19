@@ -13,9 +13,9 @@ Route::get('/user', function (Request $request) {
 Route::controller(ProductController::class)->group(function(){
  Route::post('/product','store');
 Route::get('/product','index');
-Route::get('/product/{id}','find');
-Route::put('/product/{id}','update');
-Route::delete('product/{id}','delete');
+Route::get('/product/{product}','find');
+Route::put('/product/{product}','update');
+Route::delete('product/{product}','delete');
 
 });
 
