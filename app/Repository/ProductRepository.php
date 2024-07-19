@@ -45,12 +45,12 @@ public function update(int $id, array $data):?Product{
 
 }
 
-public function delete(int $id):bool{
+public function delete(Product $product):bool{
 
-    $pro=$this->find($id);
+    $pro=$product->delete();
 
     if($pro){
-        return $pro->delete();
+        return $pro;
     }
     return false;
 

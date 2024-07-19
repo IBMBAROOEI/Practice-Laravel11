@@ -17,21 +17,12 @@ class ProductController extends Controller
 
      public function __construct(private ProductRepositoryInterface $productRepositoryInterface )
      {
-
-
         $this->productRepositoryInterface= $productRepositoryInterface;
      }
 
 
      public function store(Request $request){
-
-        $dat=[
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'discription'=>$request->discription,
-        ];
-
-        $product=$this->productRepositoryInterface->create($dat);
+        $product=$this->productRepositoryInterface->create($request->all());
         return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
      }
 
@@ -41,13 +32,7 @@ class ProductController extends Controller
 
      public function update(Request $request,$id){
 
-        $data=[
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'discription'=>$request->discription,
-        ];
-
-        $product=$this->productRepositoryInterface->update($id,$data);
+        $product=$this->productRepositoryInterface->update($id,$request->all());
         return $this->handleStatusCodes(Response::HTTP_OK,  new ProductResource($product));
      }
 

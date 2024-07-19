@@ -10,9 +10,12 @@ Route::get('/user', function (Request $request) {
 
 
 
+Route::controller(ProductController::class)->group(function(){
+ Route::post('/product','store');
+Route::get('/product','index');
+Route::get('/product/{id}','find');
+Route::put('/product/{id}','update');
+Route::delete('product/{id}','delete');
 
-Route::post('/product',[ProductController::class,'store']);
-Route::get('/product',[ProductController::class,'index']);
-Route::get('/product/{id}',[ProductController::class,'find']);
-Route::put('/product/{id}',[ProductController::class,'update']);
-Route::delete('product/{id}',[ProductController::class,'delete']);
+});
+
