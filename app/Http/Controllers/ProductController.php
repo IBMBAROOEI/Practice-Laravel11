@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProductResource;
-use App\Interfaces\ProductRepositoryInterface;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
 use App\Http\Trait\ApiResponse;
-use App\Models\Product;
+
+use App\Http\Requests\ProductRequest;
+use App\Http\Resources\ProductResource;
+use App\Interfaces\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,7 @@ class ProductController extends Controller
      }
 
 
-     public function store(Request $request){
+     public function store(ProductRequest $request){
         $product=$this->productRepositoryInterface->create($request->all());
         return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
      }
