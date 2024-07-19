@@ -58,10 +58,10 @@ class ProductController extends Controller
       }
 
 
-      public function delete($id){
+      public function delete(Product $product){
 
 
-        if($this->productRepositoryInterface->delete($id)){
+        if($this->productRepositoryInterface->delete($product)){
             return $this->handleStatusCodes(Response::HTTP_NO_CONTENT);
         }
         else{

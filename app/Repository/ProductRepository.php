@@ -47,12 +47,9 @@ public function update(int $id, array $data):?Product{
 
 public function delete(Product $product):bool{
 
-    $pro=$product->delete();
+     $product->deleteOrFail();
 
-    if($pro){
-        return $pro;
-    }
-    return false;
+     return true;
 
 }
 }
