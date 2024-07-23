@@ -30,10 +30,6 @@ class CategorieController extends Controller
      }
 
 
-
-
-
-   // در متد update
 public function update(Request $request, Categorie $categorie)
 {
     $c = $this->categoriRepositoryInterface->update($categorie, $request->all());

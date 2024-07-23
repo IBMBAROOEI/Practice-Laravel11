@@ -20,37 +20,28 @@ public function all():Collection{
      return Product::query()->get();
 }
 
-public function find(int $id):?Product{
+public function find(Product $product):?Product{
 
-    return Product::find($id);
+    return $product;
 }
 
 
 public function create(array $data):Product{
- 
-
 
     return Product::create($data);
 }
 
-public function update(int $id, array $data):?Product{
+public function update(Product $product, array $data):Product{
 
-    $pro=$this->find($id);
-
-    if($pro){
-    $pro->update($data);
-
-    return $pro;
-    }
-    return null;
+    $product->update($data);
+    return $product;
 
 }
 
 public function delete(Product $product):bool{
 
-     $product->deleteOrFail();
 
-     return true;
+     return $product->delete();
 
 }
 }

@@ -27,7 +27,6 @@ class ProductController extends Controller
      public function store(ProductRequest $request){
 
 
-        dump($request->all());
         $product=$this->productRepositoryInterface->create($request->all());
         return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
      }
@@ -36,34 +35,34 @@ class ProductController extends Controller
 
 
 
-     public function update(Request $request,$id){
+     public function update(Request $request, Product $product){
 
-        $product=$this->productRepositoryInterface->update($id,$request->all());
+        $product=$this->productRepositoryInterface->update($product,$request->all());
         return $this->handleStatusCodes(Response::HTTP_OK,  new ProductResource($product));
      }
 
 
 
       public function index(){
-
-      
-
         $products=$this->productRepositoryInterface->all();
-
-
         return $this->handleStatusCodes(Response::HTTP_OK,
         ProductResource::collection($products));
       }
 
 
-      public function find($id){
+      public function find(Product $product){
 
 
-        $products=$this->productRepositoryInterface->find($id);
+        if($product){
 
         return $this->handleStatusCodes(Response::HTTP_OK,
-         new ProductResource($products));
+         new ProductResource($product));
+        }
+        else{
+
+            return $this->handleStatusCodes(Response::HTTP_NO_CONTENT);
       }
+    }
 
 
       public function delete(Product $product){
