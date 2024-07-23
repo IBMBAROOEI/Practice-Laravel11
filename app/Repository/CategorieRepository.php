@@ -1,55 +1,37 @@
 <?php
 
+namespace App\Repository;
 
-namespace  App\Repository;
-
-use App\Interfaces\categoriRepositoryInterface;
-
+use App\Interfaces\CategoriRepositoryInterface;
 use App\Models\Categorie;
-
 use Illuminate\Database\Eloquent\Collection;
 
-class CategorieRepository  implements categoriRepositoryInterface
-
-
+class CategorieRepository implements CategoriRepositoryInterface
 {
+    public function all(): Collection
+    {
+        return Categorie::all();
+    }
 
-public function all():Collection{
+    public function find(Categorie $categorie): ?Categorie
+    {
 
+        return $categorie;
+    }
 
-     return Categorie::query()->get();
-}
+    public function create(array $data): Categorie
+    {
+        return Categorie::create($data);
+    }
 
-public function find(Categorie $categorie){
-
+    public function update(Categorie $categorie, array $data): Categorie
+{
+    $categorie->update($data);
     return $categorie;
 }
 
-
-public function create(array $data){
-
-
-    return Categorie::create($data);
-}
-
-public function update(Categorie $categorie, array $data){
-
-    $pro=$this->find($categorie);
-
-    if($pro){
-    $pro->update($data);
-
-    return $pro;
+    public function delete(Categorie $categorie): bool
+    {
+        return $categorie->delete();
     }
-    return null;
-
-}
-
-public function delete(Categorie $categorie){
-
-     $categorie->deleteOrFail();
-
-     return true;
-
-}
 }

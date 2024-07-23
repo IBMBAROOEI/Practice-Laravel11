@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CategorieResource;
 use Illuminate\Http\Request;
 use App\Http\Trait\ApiResponse;
 use Illuminate\Http\Response;
 
-use App\Interfaces\categoriRepositoryInterface;
+use App\Interfaces\CategoriRepositoryInterface;
+use App\Models\Categorie;
 
 class CategorieController extends Controller
 {
@@ -14,7 +16,7 @@ class CategorieController extends Controller
 
     Use ApiResponse;
 
-    public function __construct(private categoriRepositoryInterface $categoriRepositoryInterface )
+    public function __construct(private CategoriRepositoryInterface $categoriRepositoryInterface )
     {
        $this->categoriRepositoryInterface= $categoriRepositoryInterface;
     }
@@ -22,52 +24,52 @@ class CategorieController extends Controller
 
 
      public function store(Request $request){
-        $product=$this->categoriRepositoryInterface->create($request->all());
-        return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
+
+        $categori=$this->categoriRepositoryInterface->create($request->all());
+        return $this->handleStatusCodes(Response::HTTP_CREATED,  new CategorieResource($categori));
      }
 
 
 
 
 
-     public function update(Request $request,$id){
-
-        $product=$this->productRepositoryInterface->update($id,$request->all());
-        return $this->handleStatusCodes(Response::HTTP_OK,  new ProductResource($product));
-     }
-
-
+   // در متد update
+public function update(Request $request, Categorie $categorie)
+{
+    $c = $this->categoriRepositoryInterface->update($categorie, $request->all());
+    return $this->handleStatusCodes(Response::HTTP_OK, new CategorieResource($c));
+}
 
       public function index(){
 
 
-        $products=$this->productRepositoryInterface->all();
+        $categori=$this->categoriRepositoryInterface->all();
 
         return $this->handleStatusCodes(Response::HTTP_OK,
-        ProductResource::collection($products));
+        CategorieResource::collection($categori));
       }
 
 
-      public function find($id){
 
 
-        $products=$this->productRepositoryInterface->find($id);
-
-        return $this->handleStatusCodes(Response::HTTP_OK,
-         new ProductResource($products));
+      public function find(Categorie $categorie)
+      {
+          if ($categorie) {
+              return $this->handleStatusCodes(Response::HTTP_OK, new CategorieResource($categorie));
+          } else {
+              return $this->handleStatusCodes(Response::HTTP_NOT_FOUND);
+          }
       }
 
 
-      public function delete(Product $product){
 
-
-        if($this->productRepositoryInterface->delete($product)){
-            return $this->handleStatusCodes(Response::HTTP_NO_CONTENT);
-        }
-        else{
-
-        return $this->handleStatusCodes(Response::HTTP_NOT_FOUND);
-
+      public function delete(Categorie $categorie)
+      {
+          $this->categoriRepositoryInterface->delete($categorie);
+          return $this->handleStatusCodes(Response::HTTP_NO_CONTENT);
       }
-    }
+
+
+
+
 }

@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,13 +21,15 @@ Route::controller(ProductController::class)->group(function(){
    });
 });
 
-Route::prefix('categorei')->group(function(){
+Route::prefix('categorie')->group(function(){
     Route::controller(CategorieController::class)->group(function(){
      Route::post('/','store');
        Route::get('/','index');
-       Route::get('/{categorei}','find');
-       Route::put('/{categorei}','update');
-       Route::delete('/{categorei}','delete');
+     Route::get('/{categorie}','find');
+      //  Route::get('/{id}','show');
+
+       Route::put('/{categorie}','update');
+       Route::delete('/{categorie}','delete');
 
        });
     });

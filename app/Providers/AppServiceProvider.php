@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use App\Repository\ProductRepository;
-use App\Http\Resources\ProductResource;
+use App\Interfaces\CategoriRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Repository\CategorieRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,9 +16,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // $this->app->bind(
+        // ProductRepositoryInterface::class,
+        // ProductRepository::class,
+
+        // );
+
         $this->app->bind(
-        ProductRepositoryInterface::class,
-        ProductRepository::class
+            CategoriRepositoryInterface::class,
+        CategorieRepository::class,
+
         );
     }
 

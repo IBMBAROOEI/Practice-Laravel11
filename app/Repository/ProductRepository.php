@@ -27,6 +27,7 @@ public function find(int $id):?Product{
 
 
 public function create(array $data):Product{
+ 
 
 
     return Product::create($data);

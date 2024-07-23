@@ -6,15 +6,17 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Trait\ApiResponse;
-
+use Illuminate\Support\Traits\Conditionable;
+use Illuminate\Support\Traits\Dumpable;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Interfaces\ProductRepositoryInterface;
+use Symfony\Component\Console\Helper\Dumper;
 
 class ProductController extends Controller
 {
 
-    use ApiResponse;
+    use ApiResponse ,Conditionable, Dumpable;
 
      public function __construct(private ProductRepositoryInterface $productRepositoryInterface )
      {
@@ -23,6 +25,9 @@ class ProductController extends Controller
 
 
      public function store(ProductRequest $request){
+
+
+        dump($request->all());
         $product=$this->productRepositoryInterface->create($request->all());
         return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
      }
@@ -41,8 +46,10 @@ class ProductController extends Controller
 
       public function index(){
 
+      
 
         $products=$this->productRepositoryInterface->all();
+
 
         return $this->handleStatusCodes(Response::HTTP_OK,
         ProductResource::collection($products));
