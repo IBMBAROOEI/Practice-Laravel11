@@ -23,6 +23,9 @@ class TagController extends Controller
 
 
 
+
+
+
      public function store(Request $request){
 
         $categori=$this->tagRepositoryInterface->create($request->all());
@@ -53,6 +56,7 @@ public function update(Tag $tag,Request $request)
           if ($Tag) {
               return $this->handleStatusCodes(Response::HTTP_OK, new TagResource($Tag));
           } else {
+       
               return $this->handleStatusCodes(Response::HTTP_NOT_FOUND);
           }
       }

@@ -6,7 +6,9 @@ use App\Repository\ProductRepository;
 use App\Interfaces\CategoriRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Interfaces\TagRepositoryInterface;
 use App\Repository\CategorieRepository;
+use App\Repository\TagRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
         CategorieRepository::class,
 
         );
+
+
+        $this->app->bind(TagRepositoryInterface::class, TagRepository::class);
     }
 
     /**
