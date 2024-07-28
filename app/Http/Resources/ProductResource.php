@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
 {
-    /** 
+    /**
      * Transform the resource into an array.
      *
      * @return array<string, mixed>
@@ -20,7 +20,8 @@ class ProductResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'discription'=>$this->discription,
-            'price'=>$this->price
+            'price'=>$this->price,
+            'categories'=>$this->categorie
          ];
     }
 }

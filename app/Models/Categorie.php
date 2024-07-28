@@ -10,13 +10,15 @@ class Categorie extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['pivot'];
+
     Protected $fillable=['id','name','parent_id'];
 
 
     public function products():BelongsToMany{
 
 
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class,'product_categorie','categorie_id','product_id');
     }
 
 }

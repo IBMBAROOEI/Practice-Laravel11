@@ -5,7 +5,6 @@ namespace  App\Repository;
 
 use App\Interfaces\ProductRepositoryInterface;
 use App\Models\Product;
-
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository implements ProductRepositoryInterface
@@ -43,5 +42,24 @@ public function delete(Product $product):bool{
 
      return $product->delete();
 
+}
+
+public function attachCategories(Product $product, array $categorie_id): void
+
+{
+
+  
+    $product->categorie()->attach($categorie_id);
+}
+
+
+public function detachCategories(Product $product, array $categorie_id): void
+{
+    $product->categorie()->detach($categorie_id);
+}
+
+public function syncCategories(Product $product, array $categorie_id): void
+{
+    $product->categorie()->sync($categorie_id);
 }
 }

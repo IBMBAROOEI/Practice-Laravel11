@@ -11,6 +11,7 @@ use Illuminate\Support\Traits\Dumpable;
 use App\Http\Requests\ProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Models\Categorie;
 use Symfony\Component\Console\Helper\Dumper;
 
 class ProductController extends Controller
@@ -18,7 +19,9 @@ class ProductController extends Controller
 
     use ApiResponse ,Conditionable, Dumpable;
 
-     public function __construct(private ProductRepositoryInterface $productRepositoryInterface )
+     public function __construct(private ProductRepositoryInterface $productRepositoryInterface
+
+     )
      {
         $this->productRepositoryInterface= $productRepositoryInterface;
      }
@@ -28,7 +31,12 @@ class ProductController extends Controller
 
 
         $product=$this->productRepositoryInterface->create($request->all());
-        return $this->handleStatusCodes(Response::HTTP_CREATED,  new ProductResource($product));
+
+       $this->productRepositoryInterface->attachCategories($product,$request->input('categorie_id'));
+
+
+        return $this->handleStatusCodes(Response::HTTP_CREATED,
+        new ProductResource($product));
      }
 
 
@@ -44,9 +52,12 @@ class ProductController extends Controller
 
 
       public function index(){
-        $products=$this->productRepositoryInterface->all();
-        return $this->handleStatusCodes(Response::HTTP_OK,
-        ProductResource::collection($products));
+
+        $p=Product::with('categorie')->get();
+        return response()->json($p);
+        // $products=$this->productRepositoryInterface->all();
+        // return $this->handleStatusCodes(Response::HTTP_OK,
+        // ProductResource::collection($products));
       }
 
 

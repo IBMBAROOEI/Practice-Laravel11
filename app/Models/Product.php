@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Product extends Model
 {
     use HasFactory;
+    protected $hidden = ['pivot'];
 
 
     Protected $fillable=['name','price','discription'];
@@ -18,6 +19,6 @@ class Product extends Model
     public function categorie():BelongsToMany{
 
 
-        return $this->belongsToMany(Categorie::class);
+        return $this->belongsToMany(Categorie::class,'product_categorie','product_id','categorie_id');
     }
 }
