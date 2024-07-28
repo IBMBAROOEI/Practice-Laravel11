@@ -53,11 +53,6 @@ public function attachCategories(Product $product, array $categorie_id): void
 }
 
 
-public function detachCategories(Product $product, array $categorie_id): void
-{
-    $product->categorie()->detach($categorie_id);
-}
-
 public function syncCategories(Product $product, array $categorie_id): void
 {
     $product->categorie()->sync($categorie_id);
