@@ -16,7 +16,6 @@ interface ProductRepositoryInterface
 
      public function attachCategories(Product $product, array $categorie_id):void;
 
-     public function detachCategories(Product $product,array $categorie_id):void;
-     public function syncCategories(Product $product , array $categorie_id):void;
+     public function syncCategories(Product $product,array $categorie_id):void;
 }
 

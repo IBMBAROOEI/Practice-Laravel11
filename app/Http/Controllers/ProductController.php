@@ -46,18 +46,18 @@ class ProductController extends Controller
      public function update(Request $request, Product $product){
 
         $product=$this->productRepositoryInterface->update($product,$request->all());
+        $this->productRepositoryInterface->syncCategories($product,$request->input('categorie_id'));
+
+
         return $this->handleStatusCodes(Response::HTTP_OK,  new ProductResource($product));
      }
 
 
 
       public function index(){
-
-        $p=Product::with('categorie')->get();
-        return response()->json($p);
-        // $products=$this->productRepositoryInterface->all();
-        // return $this->handleStatusCodes(Response::HTTP_OK,
-        // ProductResource::collection($products));
+        $products=$this->productRepositoryInterface->all();
+        return $this->handleStatusCodes(Response::HTTP_OK,
+        ProductResource::collection($products));
       }
 
 

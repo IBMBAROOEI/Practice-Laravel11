@@ -16,7 +16,7 @@ public function all():Collection{
 
 
 
-     return Product::query()->get();
+     return Product::query()->with('categorie')->get();
 }
 
 public function find(Product $product):?Product{
@@ -48,7 +48,7 @@ public function attachCategories(Product $product, array $categorie_id): void
 
 {
 
-  
+
     $product->categorie()->attach($categorie_id);
 }
 
