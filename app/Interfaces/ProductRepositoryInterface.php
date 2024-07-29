@@ -17,5 +17,8 @@ interface ProductRepositoryInterface
      public function attachCategories(Product $product, array $categorie_id):void;
 
      public function syncCategories(Product $product,array $categorie_id):void;
+     public function attachTags(Product $product, array $tag_id):void;
+
+     public function syncTags(Product $product,array $tag_id):void;
 }
 

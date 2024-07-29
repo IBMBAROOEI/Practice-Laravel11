@@ -16,7 +16,7 @@ public function all():Collection{
 
 
 
-     return Product::query()->with('categorie')->get();
+     return Product::with([ 'categorie','tags'])->get();
 }
 
 public function find(Product $product):?Product{
@@ -47,8 +47,6 @@ public function delete(Product $product):bool{
 public function attachCategories(Product $product, array $categorie_id): void
 
 {
-
-
     $product->categorie()->attach($categorie_id);
 }
 
@@ -56,5 +54,18 @@ public function attachCategories(Product $product, array $categorie_id): void
 public function syncCategories(Product $product, array $categorie_id): void
 {
     $product->categorie()->sync($categorie_id);
+}
+
+
+public function attachTags(Product $product, array $tag_id): void
+
+{
+    $product->tags()->attach($tag_id);
+}
+
+
+public function syncTags(Product $product, array $tag_id): void
+{
+    $product->tags()->sync($tag_id);
 }
 }

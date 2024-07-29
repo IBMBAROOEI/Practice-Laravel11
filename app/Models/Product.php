@@ -11,6 +11,7 @@ class Product extends Model
     use HasFactory;
     protected $hidden = ['pivot'];
 
+    // protected $with=['categorie','tags'];
 
     Protected $fillable=['name','price','discription'];
 
@@ -20,5 +21,11 @@ class Product extends Model
 
 
         return $this->belongsToMany(Categorie::class,'product_categorie','product_id','categorie_id');
+    }
+
+    public function tags():BelongsToMany{
+
+
+        return $this->belongsToMany(Tag::class,'product_tag','product_id','tag_id');
     }
 }

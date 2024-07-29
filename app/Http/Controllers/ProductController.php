@@ -33,6 +33,7 @@ class ProductController extends Controller
         $product=$this->productRepositoryInterface->create($request->all());
 
        $this->productRepositoryInterface->attachCategories($product,$request->input('categorie_id'));
+       $this->productRepositoryInterface->attachTags($product,$request->input('tag_id'));
 
 
         return $this->handleStatusCodes(Response::HTTP_CREATED,
@@ -48,6 +49,7 @@ class ProductController extends Controller
         $product=$this->productRepositoryInterface->update($product,$request->all());
         $this->productRepositoryInterface->syncCategories($product,$request->input('categorie_id'));
 
+        $this->productRepositoryInterface->syncTags($product,$request->input('tag_id'));
 
         return $this->handleStatusCodes(Response::HTTP_OK,  new ProductResource($product));
      }
